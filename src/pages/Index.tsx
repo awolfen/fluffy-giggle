@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
-import { Position } from "@/types/portfolio";
-import { PositionsTable } from "@/components/PositionsTable";
 import { useToast } from "@/hooks/use-toast";
+import { PositionsTable } from "@/pages/CarbonPortfolio/components/PositionsTable";
+import { Position } from "@/types/portfolio";
+import { useEffect, useState } from "react";
 
 const API_BASE_URL = "http://localhost:4000/api";
 
