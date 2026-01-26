@@ -72,6 +72,8 @@ Reduce some code repetition and sets us up for refactoring the positions table w
 
 Next step would be to re-review (looking at code structure, abstraction of logic, adding tests).
 
+Would also consider pre-fetching the summary data to avoid loading times on switch!
+
 ####
 
 raw notes:
