@@ -3,12 +3,19 @@ import {
   PortfolioSummaryStatusFilterValue,
   StatusFilter,
 } from "@/pages/CarbonPortfolio/components/StatusFilter";
+import {
+  PortfolioSummaryVintageFilterValue,
+  VintageFilter,
+} from "@/pages/CarbonPortfolio/components/VintageFilter";
 import { useState } from "react";
 import { PortfolioSummaryTable } from "./components/PortfolioSummaryTable";
+import { VintageFilterInitialValue } from "./consts";
 
 const CarbonPortfolioPage = () => {
   const [statusFilter, setStatusFilter] =
     useState<PortfolioSummaryStatusFilterValue>("both");
+  const [vintageFilter, setVintageFilter] =
+    useState<PortfolioSummaryVintageFilterValue>(VintageFilterInitialValue);
 
   return (
     <div className="min-h-screen bg-background">
@@ -24,10 +31,12 @@ const CarbonPortfolioPage = () => {
           <div>
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-2xl font-bold">Portfolio Summary</h2>
+              <VintageFilter onChange={setVintageFilter} />
               <StatusFilter value={statusFilter} onChange={setStatusFilter} />
             </div>
             <PortfolioSummaryTable
               status={statusFilter === "both" ? undefined : statusFilter}
+              vintage={vintageFilter}
             />
           </div>
 

@@ -16,9 +16,13 @@ import { useEffect } from "react";
 
 interface PortfolioSummaryTableProps {
   status?: PositionStatus;
+  vintage?: string;
 }
 
-const PortfolioSummaryTable = ({ status }: PortfolioSummaryTableProps) => {
+const PortfolioSummaryTable = ({
+  status,
+  vintage,
+}: PortfolioSummaryTableProps) => {
   const { toast } = useToast();
 
   const {
@@ -26,12 +30,17 @@ const PortfolioSummaryTable = ({ status }: PortfolioSummaryTableProps) => {
     isLoading: isLoadingSummary,
     error,
   } = useQuery<PortfolioSummary, Error>({
-    queryKey: ["portfolioSummary", status],
+    queryKey: ["portfolioSummary", status, vintage],
     queryFn: async () => {
-      let url = `${API_BASE_URL}/portfolio/summary`;
+      const params = new URLSearchParams();
       if (status) {
-        url += `?status=${status}`;
+        params.append("status", status);
       }
+      if (vintage) {
+        params.append("vintage", vintage);
+      }
+      const queryString = params.toString();
+      const url = `${API_BASE_URL}/portfolio/summary${queryString ? `?${queryString}` : ""}`;
       const response = await fetch(url);
       if (!response.ok) {
         throw new Error("Failed to fetch portfolio summary");
